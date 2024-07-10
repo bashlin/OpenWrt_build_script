@@ -436,6 +436,16 @@ mkdir -p files/etc/sysctl.d
 curl -so files/etc/sysctl.d/15-vm-swappiness.conf https://$mirror/openwrt/files/etc/sysctl.d/15-vm-swappiness.conf
 curl -so files/etc/sysctl.d/16-udp-buffer-size.conf https://$mirror/openwrt/files/etc/sysctl.d/16-udp-buffer-size.conf
 
+#config
+mkdir -p files/etc/config
+if [ "$DEVTYPE" = "nuc" ]; then
+    curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-nuc
+    curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-nuc
+elif [ "$DEVTYPE" = "pve" ]; then
+    curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-pve
+    curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-pve
+fi
+
 # NTP
 sed -i 's/0.openwrt.pool.ntp.org/ntp1.aliyun.com/g' package/base-files/files/bin/config_generate
 sed -i 's/1.openwrt.pool.ntp.org/ntp2.aliyun.com/g' package/base-files/files/bin/config_generate
