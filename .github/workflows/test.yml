@@ -14,10 +14,18 @@ on:
           - "nanopi-r5s"
           - "netgear_r8500"
           - "x86_64"
+      device_type:
+        description: "Device Type"
+        required: true
+        default: "nuc"
+        type: choice
+        options:
+          - "nuc"
+          - "pve"
       build_options:
         description: "Build options (separate multiple options with spaces)"
         required: false
-        default: "BUILD_FAST=y ENABLE_LTO=y ENABLE_MOLD=y ENABLE_LRNG=y ENABLE_BPF=y ENABLE_DPDK=y USE_GCC14=y DEVTYPE=nuc"
+        default: "BUILD_FAST=y ENABLE_LTO=y ENABLE_MOLD=y ENABLE_LRNG=y ENABLE_BPF=y ENABLE_DPDK=y USE_GCC14=y"
         type: string
 
 jobs:
@@ -32,5 +40,7 @@ jobs:
       - name: Setup variables
         run: |
           export ${{ github.event.inputs.build_options }}
-          echo ${ DEVTYPE }
-          echo ${{ DEVTYPE }}
+          export GITHUB_REPO=${{ github.repository }}
+          echo ${{ GITHUB_REPO }}
+          echo $DEVTYPE
+          echo "$DEVTYPE"
