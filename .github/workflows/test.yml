@@ -47,7 +47,7 @@ jobs:
           echo ${{ env.WORKDIR }}
           bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/master/test.sh)
           mkdir -p rom
-          echo "test" > /rom/test.txt
+          echo "test" > rom/test.txt
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
