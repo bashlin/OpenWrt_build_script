@@ -42,5 +42,15 @@ jobs:
           export ${{ github.event.inputs.build_options }}
           export DEVTYPE=${{ github.event.inputs.device_type }}
           echo "DEVTYPE=${{ github.event.inputs.device_type }}" >>$GITHUB_ENV
+          echo WORKDIR="/builder" >> "$GITHUB_ENV"
           echo ${{ env.DEVTYPE }}
+          echo ${{ env.WORKDIR }}
           bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/master/test.sh)
+          mkdir -p rom
+          echo "test" > /rom/test.txt
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.device }}-openwrt-${{ env.DEVTYPE }}
+          path: /rom/*
