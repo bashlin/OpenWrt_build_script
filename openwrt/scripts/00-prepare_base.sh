@@ -93,7 +93,7 @@ if [ "$ENABLE_GLIBC" = "y" ]; then
     curl -s https://$mirror/openwrt/patch/glibc/glibc-common.patch | patch -p1
     # glibc-common - locale data
     mkdir -p package/libs/toolchain/glibc-locale
-    curl -Lso package/libs/toolchain/glibc-locale/locale-archive https://github.com/sbwml/r4s_build_script/releases/download/locale/locale-archive
+    curl -Lso package/libs/toolchain/glibc-locale/locale-archive https://$github/sbwml/r4s_build_script/releases/download/locale/locale-archive
     [ "$?" -ne 0 ] && echo -e "${RED_COLOR} Locale file download failed... ${RES}"
     # GNU LANG
     mkdir package/base-files/files/etc/profile.d
@@ -444,10 +444,10 @@ curl -so files/etc/sysctl.d/16-udp-buffer-size.conf https://$mirror/openwrt/file
 
 #config
 mkdir -p files/etc/config
-if [ "$DEVTYPE" = "nuc" ]; then
+if [ "$DEVTYPE" = "NUC" ]; then
     curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-nuc
     curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-nuc
-elif [ "$DEVTYPE" = "pve" ]; then
+elif [ "$DEVTYPE" = "PVE" ]; then
     curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-pve
     curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-pve
 fi
