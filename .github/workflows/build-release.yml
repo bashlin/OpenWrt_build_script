@@ -116,14 +116,14 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.event.inputs.device }}-openwrt-${{ env.latest_release }}
+        name: ${{ github.event.inputs.device }}-openwrt-${{ env.latest_release }}-${{ env.DEVTYPE }}
         path: ${{ env.WORKDIR }}/rom/*
 
     - name: Create release
       continue-on-error: true
       uses: sbwml/release-action@main
       with:
-        name: OpenWrt-${{ env.latest_release }}
+        name: OpenWrt-${{ env.latest_release }}-${{ env.DEVTYPE }}
         allowUpdates: true
         tag: ${{ env.latest_release }}
         commit: master
