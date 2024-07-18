@@ -4,20 +4,20 @@ on:
   workflow_dispatch:
     inputs:
       device:
-        description: 'Select device to build'
+        description: "Select device to build"
         required: true
-        default: 'x86_64'
+        default: "x86_64"
         type: choice
         options:
-          - 'armv8'
-          - 'nanopi-r4s'
-          - 'nanopi-r5s'
-          - 'netgear_r8500'
-          - 'x86_64'
+          - "armv8"
+          - "nanopi-r4s"
+          - "nanopi-r5s"
+          - "netgear_r8500"
+          - "x86_64"
       build_options:
-        description: 'Build options (separate multiple options with spaces)'
+        description: "Build options (separate multiple options with spaces)"
         required: false
-        default: 'BUILD_FAST=y ENABLE_LTO=y ENABLE_MOLD=y ENABLE_LRNG=y ENABLE_BPF=y ENABLE_DPDK=y USE_GCC14=y DEVTYPE=nuc'
+        default: "BUILD_FAST=y ENABLE_LTO=y ENABLE_MOLD=y ENABLE_LRNG=y ENABLE_BPF=y ENABLE_DPDK=y USE_GCC14=y DEVTYPE=nuc"
         type: string
 
 jobs:
@@ -29,8 +29,8 @@ jobs:
         shell: bash
 
     steps:
-    - name: Setup variables
-      run: |
-        export ${{ github.event.inputs.build_options }}
-        echo $GITHUB_ENV
-        echo ${{ env.DEVTYPE }}
+      - name: Setup variables
+        run: |
+          export ${{ github.event.inputs.build_options }}
+          echo ${{GITHUB_ENV}}
+          echo ${{ env.DEVTYPE }}
