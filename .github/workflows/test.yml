@@ -32,5 +32,5 @@ jobs:
       - name: Setup variables
         run: |
           export ${{ github.event.inputs.build_options }}
-          echo ${{ GITHUB_ENV }}
-          echo ${{ env.DEVTYPE }}
+          echo ${ DEVTYPE }
+          echo ${{ DEVTYPE }}
