@@ -93,6 +93,7 @@ jobs:
       - name: Prepare Firmware Files
         working-directory: /builder
         run: |
+          echo "BUILD_DATE=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           mkdir -p rom info
           if [ "${{ github.event.inputs.device }}" = "nanopi-r4s" ]; then
             cp -a openwrt/bin/targets/rockchip/*/*.img.gz rom/
@@ -135,8 +136,8 @@ jobs:
         with:
           name: OpenWrt-${{ env.latest_release }}-${{ env.DEVTYPE }}
           allowUpdates: true
-          tag: ${{ env.latest_release }}
+          tag: ${{ env.latest_release }}-${{ env.BUILD_DATE }}
           commit: master
-          replacesArtifacts: false
+          replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: ${{ env.WORKDIR }}/rom/*
