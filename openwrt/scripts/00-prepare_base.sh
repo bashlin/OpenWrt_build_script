@@ -443,13 +443,15 @@ curl -so files/etc/sysctl.d/15-vm-swappiness.conf https://$mirror/openwrt/files/
 curl -so files/etc/sysctl.d/16-udp-buffer-size.conf https://$mirror/openwrt/files/etc/sysctl.d/16-udp-buffer-size.conf
 
 #config
-mkdir -p files/etc/config
-if [ "$DEVTYPE" = "NUC" ]; then
-    curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-nuc
-    curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-nuc
-elif [ "$DEVTYPE" = "PVE" ]; then
-    curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-pve
-    curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-pve
+if [ -n "$DEVTYPE" ]; then
+    mkdir -p files/etc/config
+    if [ "$DEVTYPE" = "NUC" ]; then
+        curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-nuc
+        curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-nuc
+    elif [ "$DEVTYPE" = "PVE" ]; then
+        curl -so files/etc/config/network https://$mirror/openwrt/files/etc/config/network-pve
+        curl -so files/etc/config/dhcp https://$mirror/openwrt/files/etc/config/dhcp-pve
+    fi
 fi
 
 # NTP
