@@ -30,7 +30,7 @@ on:
 
 jobs:
   build:
-    name: Build ${{ github.event.inputs.device }}
+    name: Build ${{ github.event.inputs.device }}_${{ github.event.inputs.device_type }}
     runs-on: ubuntu-24.04
     defaults:
       run:
@@ -134,7 +134,7 @@ jobs:
         continue-on-error: true
         uses: sbwml/release-action@main
         with:
-          name: OpenWrt-${{ env.latest_release }}-${{ env.DEVTYPE }}
+          name: OpenWrt-${{ env.latest_release }}-${{ github.event.inputs.device }}-${{ env.DEVTYPE }}
           allowUpdates: true
           tag: ${{ env.latest_release }}-${{ env.BUILD_DATE }}
           commit: master
